@@ -1,5 +1,17 @@
+import argparse
+
+
+# wraps https://docs.github.com/en/rest/commits/commits#compare-two-commits
 def main():
     print(hello())
+    parser = argparse.ArgumentParser("Compares two GitHub commits.")
+    parser.add_argument("owner", help="The account owner of the repository. The name is not case sensitive.")
+    parser.add_argument("repo", help="The name of the repository. The name is not case sensitive.")
+    parser.add_argument("base", help="The base branch to compare.")
+    parser.add_argument("head", help="The head branch to compare.")
+    parser.add_argument("--page", help="Page number of the results to fetch.", type=int, default=1, required=False)
+    parser.add_argument("--per_page", help="The number of results per page (max 100).", type=int, default=30, required=False)
+    parser.parse_args()
 
 
 def hello():
