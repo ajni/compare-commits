@@ -1,4 +1,7 @@
 import argparse
+import os
+
+import requests
 
 
 # wraps https://docs.github.com/en/rest/commits/commits#compare-two-commits
@@ -13,7 +16,27 @@ def main():
     parser.add_argument("repo", help="The name of the repository. The name is not case sensitive.")
     parser.add_argument("base", help="The base branch to compare.")
     parser.add_argument("head", help="The head branch to compare.")
-    parser.parse_args()
+    args = parser.parse_args()
+
+    # prepare request
+    url = str.removesuffix(args.baseurl, "/")
+    url += f"/repos/{args.owner}/{args.repo}/compare/{args.base}...{args.head}"
+    params = {}
+    if args.page:
+        params["page"] = args.page
+    if args.per_page:
+        params["per_page"] = args.per_page
+    headers = {"Accept": "application/vnd.github+json"}
+    token = args.token
+    if not token:
+        token = os.getenv("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    response = requests.get(url, params=params, headers=headers)
+    response.raise_for_status()
+    data = response.json()
+    print(data)
 
 
 def hello():
