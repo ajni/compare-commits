@@ -15,7 +15,8 @@ GUI example: https://github.com/facebook/react/compare/0.11-stable...0.12-stable
 
 ### CLI Usage:
 ~~~
-python cc.py [-h] [--baseurl BASEURL] [--token TOKEN] [--page PAGE] [--per_page PER_PAGE] [--raw | --no-raw] owner repo base head
+python cc.py [-h] [--baseurl BASEURL] [--token TOKEN] [--page PAGE] [--per_page PER_PAGE]
+             [--raw | --no-raw] owner repo base head
 
 positional arguments:
   owner                The account owner of the repository. The name is not case sensitive.
